@@ -6,7 +6,6 @@
     </div>
     <div class="container">
       <router-view/>
-      <h1>1 ЧАС</h1>
     </div>
   </div>
 </template>
