@@ -7,17 +7,17 @@
                :class="inputClass"
                :value="value"
                :required="required"
-               :min="minLength"
-               :max="maxLength"
-               @input="change($event.target.value)"
+               @input="change($event)"
+               @keypress="keyPressEvent"
         >
+        <slot name="valid"></slot>
         <slot name="description"></slot>
     </label>
 </template>
 
 <script>
     export default {
-        name: "input",
+        name: "appInput",
         props: {
             label: {
                 type: String,
@@ -45,21 +45,18 @@
             inputClass: {
                 type: String,
                 default: ''
-            },
-            minLength: {
-                type: [Number, String],
-                default: ''
-            },
-            maxLength: {
-                type: [Number, String],
-                default: ''
             }
         },
 
         methods: {
             change(event) {
-                this.$emit('input', event);
+                this.$emit('input', event.target.value);
+                this.$emit('changeInput', event.target.value);
+                this.$emit('changeInputCard', event);
             },
+            keyPressEvent(event) {
+                this.$emit('keyPress', event);
+            }
         }
     }
 </script>
@@ -96,4 +93,14 @@
             margin-top: 10px
             font-size: 14px
             color: #8E8E8E
+
+        & .valid-text
+            position: absolute
+            top: 100%
+            left: 5px
+            font-size: 11px
+            color: #ff0008
+
+        & .cvccvv-valid
+            top: 72%
 </style>

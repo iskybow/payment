@@ -1,1 +1,1 @@
-export const GET_CART = 'GET_CART';
+export const GET_CARD = 'GET_CARD';

@@ -3,18 +3,18 @@ import actions from './actions';
 import api from '@/api';
 
 const state = {
-    cart: {}
+    card: {}
 };
 
 const mutations = {
-    [type.GET_CART](state, payload) {
-        state.cart = payload;
+    [type.GET_CARD](state, payload) {
+        state.card = payload;
     },
 };
 
 const getters = {
-    cart: state => {
-        return state.cart;
+    card: state => {
+        return state.card;
     }
 };
 
