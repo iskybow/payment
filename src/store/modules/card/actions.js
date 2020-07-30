@@ -3,7 +3,6 @@ import api from '@/api';
 
 const actions = {
     getCard({commit}, payload) {
-
         return new Promise((resolve, reject) => {
             api.get('5eaffb6c3300005c00c68a8a')
                 .then(res => {

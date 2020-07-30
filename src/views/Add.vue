@@ -65,84 +65,14 @@
 </template>
 
 <script>
+    import paymentMixin from '../mixins/mixin'
     export default {
         name: "Add",
-        data() {
-            return {
-                formData: {
-                    price: '',
-                    number: '',
-                    name: '',
-                    date_month: '',
-                    date_year: '',
-                    date: '',
-                    cvccvv: '',
-                    check: false
-                },
-                maxYear: 0,
-                nameValid: '',
-                monthValid: '',
-                yearValid: '',
-                cvccvvValid: '',
-                numberValid: '',
-                priceValid: '',
-                disabled: true,
-                popupFlag: false
-            }
-        },
-        mounted() {
-            let now = new Date();
-            let year = now.getFullYear();
-            this.maxYear = (year-(year%Math.pow(10, 2)))/Math.pow(10, 2);
-        },
+        mixins: [paymentMixin],
         methods: {
-            validCard(event) {
-                let m = this.formData.number.length;
-
-                if (m > 18 || event.keyCode < 48 || event.keyCode > 57)
-                    event.returnValue= false;
-
-                else if (m == 4 || m == 9 || m == 14)
-                    this.formData.number += '-';
-            },
-            valid() {
-                if(this.formData.price.length < 1) {
-                    this.priceValid = 'Поле обязательно для заполнения';
-                } else {
-                    this.priceValid = '';
-                }
-                if(this.formData.number.length < 19) {
-                    this.numberValid = 'Неверный номер карты';
-                } else {
-                    this.numberValid = '';
-                }
-                if(this.formData.name.match(/[0-9]/)) {
-                    this.nameValid = 'Только буквы';
-                } else {
-                    this.nameValid = '';
-                }
-                if(this.formData.date_month > 12) {
-                    this.monthValid = 'Не больше 12';
-                } else {
-                    this.monthValid = '';
-                }
-                if(this.formData.date_year > this.maxYear) {
-                    this.yearValid = 'Не больше ' + this.maxYear;
-                } else {
-                    this.yearValid = '';
-                }
-                if(this.formData.cvccvv.length < 3 || this.formData.cvccvv.length > 4) {
-                    this.cvccvvValid = '3 или 4 цифры';
-                } else {
-                    this.cvccvvValid = '';
-                }
-                if(this.formData.price != '' && this.formData.number.length === 19 && this.formData.name != '' && this.formData.date_month != '' && this.formData.date_year != '' && this.formData.cvccvvValid != '' && this.formData.check === true) {
-                    this.disabled = false;
-                }
-            },
             addCard(e) {
                 e.preventDefault();
-                this.formData.date = '01.' + this.formData.date_month + '/' + this.formData.date_year;
+                this.formData.date = '01/' + this.formData.date_month + '/' + this.formData.date_year;
                 setTimeout(() => {
                     this.popupFlag = true;
                 }, 2000)
